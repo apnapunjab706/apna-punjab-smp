@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Team Login</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <style>
+    .login-box {
+      max-width: 300px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    .login-box input {
+      display: block;
+      width: 90%;
+      padding: 10px;
+      margin: 10px auto;
+    }
+    .login-box button {
+      padding: 10px 20px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="login-box">
+  <h2>Team Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p id="msg"></p>
+</div>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyD_TqdF0ORIco-u-i2lOjrXOYocqSXWGdo",
+  authDomain: "team-login-30ab2.firebaseapp.com",
+  projectId: "team-login-30ab2",
+};
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        window.location.href = "dashboard.html";
+      })
+      .catch(() => {
+        document.getElementById("msg").innerText = "❌ Login failed";
+      });
+  }
+</script>
+
+</body>
+</html>
