@@ -188,3 +188,21 @@ footer {
     margin: 80px 15px;
   }
 }
+.staff-login-btn {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.staff-login-btn button {
+  padding: 12px 25px;
+  font-size: 16px;
+  background: #1f7a1f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.staff-login-btn button:hover {
+  background: #145214;
+}
