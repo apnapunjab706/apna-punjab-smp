@@ -8,7 +8,7 @@ function copyIP() {
 const status = document.getElementById("server-status");
 const players = document.getElementById("players");
 
-fetch("https://api.mcsrvstat.us/2/play.freshs.fun")
+fetch("https://api.mcsrvstat.us/2/apnapunjab.fun")
   .then(res => res.json())
   .then(data => {
     if (data.online) {
