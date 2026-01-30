@@ -74,133 +74,43 @@ animate();
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyD_TqdF0ORIco-u-i2lOjrXOYocqSXWGdo",
-  authDomain: "team-login-30ab2.firebaseapp.com",
-  projectId: "team-login-30ab2",
+    apiKey: "AIzaSyD_TqdF0ORIco-u-i2lOjrXOYocqSXWGdo",
+    authDomain: "team-login-30ab2.firebaseapp.com",
+    projectId: "team-login-30ab2"
 };
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+// Firebase Auth & Firestore
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-let currentUser = null;
-let currentRole = "";
+// On auth change
+auth.onAuthStateChanged(user => {
+  if(!user) {
+    window.location.href = "team-login.html";
+    return;
+  }
 
-/* ===============================
-   AUTH CHECK
-================================ */
-
-/* ===============================
-   LOAD USER DATA
-================================ */
-function loadUserData() {
-  db.collection("users").doc(currentUser.uid).get()
+  // Fetch Firestore user document
+  db.collection("users").doc(user.uid).get()
     .then(doc => {
-      if (!doc.exists) {
-        alert("User data not found!");
-        return;
+      if(doc.exists){
+        document.getElementById("username").innerText = doc.data().name;
+        document.getElementById("roleBadge").innerText = doc.data().role.toUpperCase();
+      } else {
+        console.log("User record not found in Firestore");
+        document.getElementById("username").innerText = "User";
+        document.getElementById("roleBadge").innerText = "ROLE";
       }
-
-      const data = doc.data();
-      document.getElementById("username").innerText = data.name;
-      document.getElementById("roleBadge").innerText = data.role.toUpperCase();
-      currentRole = data.role;
-
-      applyRoleAccess();
-      fetchStaffList();
     })
     .catch(err => console.error(err));
-}
+});
 
-/* ===============================
-   ROLE BASED ACCESS
-================================ */
-function applyRoleAccess() {
-  document.querySelectorAll(".owner, .coowner, .admin, .mod")
-    .forEach(el => el.classList.add("hidden"));
-
-  document.querySelectorAll("." + currentRole)
-    .forEach(el => el.classList.remove("hidden"));
-}
-
-/* ===============================
-   LOGOUT
-================================ */
+// Logout
 function logout() {
   auth.signOut().then(() => {
     window.location.href = "team-login.html";
   });
 }
 
-/* ===============================
-   STAFF MANAGEMENT
-================================ */
-const staffListEl = document.getElementById("staffList");
-
-// Fetch staff list
-function fetchStaffList() {
-  if (!staffListEl) return;
-
-  db.collection("users").onSnapshot(snapshot => {
-    staffListEl.innerHTML = "";
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      staffListEl.innerHTML += `
-        <li>
-          ${data.name} (${data.role})
-          <button onclick="editStaff('${doc.id}')">Edit</button>
-          <button onclick="removeStaff('${doc.id}')">Remove</button>
-        </li>
-      `;
-    });
-  });
-}
-
-// Add staff
-function addStaff() {
-  const name = document.getElementById("staffName").value;
-  const email = document.getElementById("staffEmail").value;
-  const role = document.getElementById("staffRole").value;
-
-  if (!name || !email || !role) {
-    alert("Please fill all fields");
-    return;
-  }
-
-  auth.createUserWithEmailAndPassword(email, "defaultPassword123")
-    .then(cred => {
-      return db.collection("users").doc(cred.user.uid).set({
-        name: name,
-        email: email,
-        role: role
-      });
-    })
-    .then(() => {
-      alert("Staff added successfully!");
-      document.getElementById("staffName").value = "";
-      document.getElementById("staffEmail").value = "";
-      fetchStaffList();
-    })
-    .catch(err => alert(err.message));
-}
-
-// Edit staff
-function editStaff(uid) {
-  const newName = prompt("Enter new name:");
-  const newRole = prompt("Enter new role (owner/coowner/admin/mod):");
-
-  if (!newName || !newRole) return;
-
-  db.collection("users").doc(uid).update({
-    name: newName,
-    role: newRole
-  });
-}
-
-// Remove staff
-function removeStaff(uid) {
-  if (!confirm("Are you sure you want to remove this staff?")) return;
-
-  db.collection("users").doc(uid).delete();
-}
+      
