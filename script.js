@@ -71,6 +71,8 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
+
 // 🔥 DASHBOARD AUTH + ROLE FETCH
 
 firebase.auth().onAuthStateChanged(user => {
