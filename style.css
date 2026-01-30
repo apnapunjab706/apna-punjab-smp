@@ -206,3 +206,96 @@ footer {
 .staff-login-btn button:hover {
   background: #145214;
 }
+
+/* dashboard */
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #1b1b1b;
+  padding: 20px;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  color: #3ddc84;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 12px 0;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  background: #2e2e2e;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: green;
+  font-size: 13px;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  background: #3ddc84;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hidden for role-based elements */
+.hidden {
+  display: none;
+}
+
+/* Manage Staff */
+.manage-staff input, .manage-staff select, .manage-staff button {
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.manage-staff input, .manage-staff select {
+  width: 200px;
+}
+
+.manage-staff button {
+  background: #3ddc84;
+  color: white;
+  cursor: pointer;
+}
+
+.manage-staff ul {
+  list-style: none;
+  padding: 0;
+}
+
+.manage-staff li {
+  margin: 8px 0;
+}
+
+.manage-staff li button {
+  margin-left: 5px;
+  padding: 3px 8px;
+  background: #ff4444;
+}
