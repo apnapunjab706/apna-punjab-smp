@@ -114,3 +114,7 @@ fetch("https://api.mcsrvstat.us/2/apnapunjab.fun")
     document.getElementById("players").innerText = "";
     document.getElementById("player-list").innerHTML = "";
   });
+
+setInterval(() => {
+  // paste above fetch code here
+}, 15000);
