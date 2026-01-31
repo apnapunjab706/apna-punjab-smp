@@ -1,197 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Apna Punjab SMP - Team Dashboard</title>
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <title>Team Dashboard</title>
+  <link rel="stylesheet" href="style.css"> <!-- YOUR WEBSITE CSS -->
 </head>
+
 <body>
 
-  <style="
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    height: 100vh;
-    background: #000;
-    ">
-  <h2 style="
-    align-items: center;
-    font-size: 80px;
-    color: #00ff00;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 4px;
-    text-shadow: 2px 2px 10px rgba(0,255,0,0.6);
-  ">
-    ਫੜ੍ਹਲੋ 🖕🏻
-  </h2>
-  </style>
+<!-- TOP BAR (2nd bar, first already on website) -->
+<div class="topbar dashboard-top">
+  <span>Apna Punjab SMP – Dashboard</span>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="dashboard-container">
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <h2>Apna Punjab SMP</h2>
-    <a href="#" class="dashboard-link">Dashboard</a>
-    <a href="#" class="owner coowner">Manage Staff</a>
-    <a href="#" class="owner coowner admin">Announcements</a>
-    <a href="#" class="owner coowner">Donations</a>
-    <a href="#" class="admin mod">Reports</a>
-    <a href="#" class="owner">Settings</a>
+    <p id="userName">User</p>
+    <p class="role" id="userRole">ROLE</p>
+
+    <button onclick="showSection('overview')">Overview</button>
+    <button onclick="showSection('announcements')">Announcements</button>
+    <button onclick="showSection('players')">Players</button>
+    <button onclick="showSection('staff')">Staff</button>
+
+    <button id="addStaffBtn" style="display:none"
+      onclick="showSection('addStaff')">+ Add Staff</button>
   </div>
 
   <!-- MAIN CONTENT -->
-  <div class="main">
-  <div class="topbar">
-      <h3>Welcome, <span id="username">User</span></h3>
-      <span class="badge" id="roleBadge">Role</span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-  </div>
+  <div class="content">
 
-  <!-- CARDS -->
-  <div class="cards owner coowner">
-      <div class="card">👥 Staff<br><b id="staffCount">0</b></div>
-      <div class="card">💸 Donations<br><b id="donationAmount">₹0</b></div>
-      <div class="card">🎮 Players<br><b id="playerCount">0</b></div>
-      <div class="card">🚨 Reports<br><b id="reportCount">0</b></div>
-  </div>
+    <!-- OVERVIEW -->
+    <div class="section" id="overview">
+      <h2>Dashboard Overview</h2>
+      <div class="card">Total Players: <span id="playerCount">0</span></div>
+      <div class="card">Total Donations: ₹<span id="donationAmount">0</span></div>
+    </div>
 
-  <div class="cards admin mod">
-      <div class="card">🚨 Reports<br><b id="reportCount2">0</b></div>
-      <div class="card">📢 Announcements</div>
-  </div>
+    <!-- ANNOUNCEMENTS -->
+    <div class="section" id="announcements" style="display:none">
+      <h2>Announcements</h2>
+      <ul id="announcementList"></ul>
+    </div>
 
-  <!-- MANAGE STAFF (Role-based) -->
-  <div class="manage-staff owner coowner">
-      <h3>Manage Staff</h3>
-      <input type="text" id="staffName" placeholder="Staff Name">
-      <input type="email" id="staffEmail" placeholder="Staff Email">
-      <select id="staffRole">
-        <option value="owner">Owner</option>
-        <option value="coowner">Co-Owner</option>
-        <option value="admin">Admin</option>
-        <option value="mod">Mod</option>
-      </select>
-      <button onclick="addStaff()">Add Staff</button>
+    <!-- PLAYERS -->
+    <div class="section" id="players" style="display:none">
+      <h2>Online Players</h2>
+      <ul id="playerList"></ul>
+    </div>
 
+    <!-- STAFF -->
+    <div class="section" id="staff" style="display:none">
+      <h2>Staff Team</h2>
       <ul id="staffList"></ul>
-  </div>
+    </div>
+
+    <!-- ADD STAFF (OWNER / CO-OWNER ONLY) -->
+    <div class="section" id="addStaff" style="display:none">
+      <h2>Add New Staff</h2>
+
+      <input id="staffName" placeholder="Name">
+      <input id="staffEmail" placeholder="Email">
+      <select id="staffRole">
+        <option>mod</option>
+        <option>admin</option>
+        <option>co-owner</option>
+      </select>
+
+      <button onclick="addStaff()">Add</button>
+    </div>
 
   </div>
+</div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyD_TqdF0ORIco-u-i2lOjrXOYocqSXWGdo",
-      authDomain: "team-login-30ab2.firebaseapp.com",
-      projectId: "team-login-30ab2",
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    let currentUser = null;
-    let currentRole = "";
-
-    // Auth state check
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "team-login.html";
-      } else {
-        currentUser = user;
-        loadUserData();
-      }
-    });
-
-    // Load user data from Firestore
-    function loadUserData() {
-      db.collection("users").doc(currentUser.uid).get()
-        .then(doc => {
-          const data = doc.data();
-          document.getElementById("username").innerText = data.name;
-          document.getElementById("roleBadge").innerText = data.role.toUpperCase();
-          currentRole = data.role;
-
-          // Show/hide elements by role
-          document.querySelectorAll(".owner, .coowner, .admin, .mod").forEach(el => el.classList.add("hidden"));
-          document.querySelectorAll("." + currentRole).forEach(el => el.classList.remove("hidden"));
-
-          fetchStaffList();
-        });
-    }
-
-    // Logout function
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = "team-login.html";
-      });
-    }
-
-    // Fetch staff list
-    const staffListEl = document.getElementById("staffList");
-    function fetchStaffList() {
-      db.collection("users").get()
-        .then(snapshot => {
-          staffListEl.innerHTML = "";
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            staffListEl.innerHTML += `<li>
-              ${data.name} (${data.role})
-              <button onclick="editStaff('${doc.id}')">Edit</button>
-              <button onclick="removeStaff('${doc.id}')">Remove</button>
-            </li>`;
-          });
-        });
-    }
-
-    // Add new staff
-    function addStaff() {
-      const name = document.getElementById("staffName").value;
-      const email = document.getElementById("staffEmail").value;
-      const role = document.getElementById("staffRole").value;
-
-      if (!name || !email || !role) return alert("Fill all fields");
-
-      auth.createUserWithEmailAndPassword(email, "defaultPassword123")
-        .then(cred => {
-          return db.collection("users").doc(cred.user.uid).set({
-            name: name,
-            email: email,
-            role: role
-          });
-        })
-        .then(() => {
-          alert("Staff added!");
-          fetchStaffList();
-        })
-        .catch(err => alert(err.message));
-    }
-
-    // Edit staff
-    function editStaff(uid) {
-      const newName = prompt("New Name:");
-      const newRole = prompt("New Role (owner/coowner/admin/mod):");
-      if(newName && newRole){
-        db.collection("users").doc(uid).update({
-          name: newName,
-          role: newRole
-        }).then(()=> fetchStaffList());
-      }
-    }
-
-    // Remove staff
-    function removeStaff(uid){
-      if(confirm("Remove this staff?")){
-        db.collection("users").doc(uid).delete()
-          .then(()=> fetchStaffList());
-      }
-    }
-  </script>
-  
-<script src="script.js"></script>
+<script src="dashboard.js"></script>
 </body>
 </html>
