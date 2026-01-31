@@ -1,85 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Team Dashboard</title>
-  <link rel="stylesheet" href="style.css"> <!-- YOUR WEBSITE CSS -->
+  <title>Dashboard | Apna Punjab SMP</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- TOP BAR (2nd bar, first already on website) -->
-<div class="topbar dashboard-top">
-  <span>Apna Punjab SMP – Dashboard</span>
-  <span id="userName">User</span>
-  <span id="userRole">ROLE</span>
-  <button onclick="logout()">Logout</button>
+<!-- Full screen flashy welcome -->
+<div class="full-screen-message">
+  <h2>ਫੜ੍ਹਲੋ 🖕🏻</h2>
 </div>
 
-<div class="dashboard-container">
+<!-- Main dashboard panel -->
+<div class="dashboard">
+  <h1>Welcome Team 🚀</h1>
+  <p class="subtitle">Apna Punjab SMP – Staff Panel</p>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <button onclick="showSection('overview')">Overview</button>
-    <button onclick="showSection('announcements')">Announcements</button>
-    <button onclick="showSection('players')">Players</button>
-    <button onclick="showSection('staff')">Staff</button>
-
-    <button id="addStaffBtn" style="display:none"
-      onclick="showSection('addStaff')">+ Add Staff</button>
+  <!-- Staff role cards -->
+  <div class="staff-cards">
+    <div class="card owner">Owner: Tanvir</div>
+    <div class="card co-owner">Co-Owner: Abbey</div>
+    <div class="card admin">Admin: Simran</div>
+    <div class="card mod">Mod: Raj</div>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <div class="content">
-
-    <!-- OVERVIEW -->
-    <div class="section" id="overview">
-      <h2>Dashboard Overview</h2>
-      <div class="card">Total Players: <span id="playerCount">0</span></div>
-      <div class="card">Total Donations: ₹<span id="donationAmount">0</span></div>
-    </div>
-
-    <!-- ANNOUNCEMENTS -->
-    <div class="section" id="announcements" style="display:none">
-      <h2>Announcements</h2>
-      <ul id="announcementList"></ul>
-    </div>
-
-    <!-- PLAYERS -->
-    <div class="section" id="players" style="display:none">
-      <h2>Online Players</h2>
-      <ul id="playerList"></ul>
-    </div>
-
-    <!-- STAFF -->
-    <div class="section" id="staff" style="display:none">
-      <h2>Staff Team</h2>
-      <ul id="staffList"></ul>
-    </div>
-
-    <!-- ADD STAFF (OWNER / CO-OWNER ONLY) -->
-    <div class="section" id="addStaff" style="display:none">
-      <h2>Add New Staff</h2>
-
-      <input id="staffName" placeholder="Name">
-      <input id="staffEmail" placeholder="Email">
-      <select id="staffRole">
-        <option>mod</option>
-        <option>admin</option>
-        <option>co-owner</option>
-      </select>
-
-      <button onclick="addStaff()">Add</button>
-    </div>
-
+  <!-- Interactive buttons -->
+  <div class="dashboard-buttons">
+    <button onclick="copyIP()">Copy Server IP</button>
+    <a href="https://discord.gg/PjkNUFE8HW" target="_blank">
+      <button>Discord</button>
+    </a>
+    <a href="donate.html" target="_blank">
+      <button>Donate</button>
+    </a>
   </div>
+
+  <!-- Live server status -->
+  <div class="server-status">
+    <p id="server-status">Loading server status...</p>
+    <p id="players"></p>
+  </div>
+
+  <!-- Logout -->
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 
-<!-- FIREBASE -->
+<!-- Firebase + server scripts -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script src="dashboard.js"></script>
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_TqdF0ORIco-u-i2lOjrXOYocqSXWGdo",
+    authDomain: "team-login-30ab2.firebaseapp.com",
+    projectId: "team-login-30ab2",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Protect dashboard
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = "team-login.html";
+    }
+  });
+
+  // Logout
+  function logout() {
+    auth.signOut().then(() => {
+      window.location.href = "team-login.html";
+    });
+  }
+
+  // Flashy welcome fade out
+  setTimeout(() => {
+    document.querySelector('.full-screen-message').style.display = 'none';
+  }, 3000);
+
+  // Copy server IP
+  function copyIP() {
+    navigator.clipboard.writeText("apnapunjab.fun");
+    alert("Server IP Copied!");
+  }
+
+  // Live Minecraft server status
+  fetch("https://api.mcsrvstat.us/2/apnapunjab.fun")
+    .then(res => res.json())
+    .then(data => {
+      const status = document.getElementById("server-status");
+      const players = document.getElementById("players");
+
+      if (data.online) {
+        status.innerHTML = "🟢 Server is ONLINE";
+        players.innerHTML = `👥 Players: ${data.players.online} / ${data.players.max}`;
+      } else {
+        status.innerHTML = "🔴 Server is OFFLINE";
+        players.innerHTML = "";
+      }
+    })
+    .catch(() => {
+      document.getElementById("server-status").innerText = "⚠️ Status unavailable";
+      document.getElementById("players").innerText = "";
+    });
+</script>
+
 </body>
 </html>
