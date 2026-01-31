@@ -91,24 +91,48 @@
   }
 
   // Live Minecraft server status
+  function loadServerStatus() {
   fetch("https://api.mcsrvstat.us/2/apnapunjab.fun")
     .then(res => res.json())
     .then(data => {
       const status = document.getElementById("server-status");
       const players = document.getElementById("players");
+      const playerList = document.getElementById("player-list");
 
       if (data.online) {
         status.innerHTML = "🟢 Server is ONLINE";
-        players.innerHTML = `👥 Players: ${data.players.online} / ${data.players.max}`;
+        players.innerHTML = `👥 Players Online: ${data.players.online} / ${data.players.max}`;
+
+        playerList.innerHTML = "";
+
+        if (data.players.list && data.players.list.length > 0) {
+          data.players.list.forEach(name => {
+            const li = document.createElement("li");
+            li.innerText = name;
+            playerList.appendChild(li);
+          });
+        } else {
+          playerList.innerHTML = "<li>No players online</li>";
+        }
+
       } else {
         status.innerHTML = "🔴 Server is OFFLINE";
         players.innerHTML = "";
+        playerList.innerHTML = "";
       }
     })
     .catch(() => {
       document.getElementById("server-status").innerText = "⚠️ Status unavailable";
       document.getElementById("players").innerText = "";
+      document.getElementById("player-list").innerHTML = "";
     });
+}
+
+/* Load once */
+loadServerStatus();
+
+/* Auto refresh every 15 sec */
+setInterval(loadServerStatus, 15000);
 </script>
   
 <script src="script.js"></script>
