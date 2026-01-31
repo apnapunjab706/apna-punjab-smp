@@ -265,10 +265,11 @@ footer {
   margin-bottom: 25px;
 }
 
-.card.owner { background: #16a34a; }
-.card.co-owner { background: #22c55e; }
-.card.admin { background: #f59e0b; }
-.card.mod { background: #ef4444; }
+.card.owner { background: #16a34a; }        /* dark green */
+.card.one-owner { background: #22c55e; }    /* light green */
+.card.devloper { background: #3b82f6; }     /* blue */
+.card.one-devloper { background: #6366f1; } /* indigo */
+.card.admin { background: #f59e0b; }        /* orange */
 
 /* Logout button */
 .logout-btn {
