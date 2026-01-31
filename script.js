@@ -1,28 +1,3 @@
-// ===== Copy Server IP =====
-function copyIP() {
-  navigator.clipboard.writeText("apnapunjab.fun");
-  alert("Server IP Copied!");
-}
-
-// ===== Live Server Status =====
-const status = document.getElementById("server-status");
-const players = document.getElementById("players");
-
-fetch("https://api.mcsrvstat.us/2/apnapunjab.fun")
-  .then(res => res.json())
-  .then(data => {
-    if (data.online) {
-      status.innerHTML = "🟢 Server is ONLINE";
-      players.innerHTML = `👥 Players: ${data.players.online} / ${data.players.max}`;
-    } else {
-      status.innerHTML = "🔴 Server is OFFLINE";
-      players.innerHTML = "";
-    }
-  })
-  .catch(() => {
-    status.innerText = "⚠️ Status unavailable";
-    players.innerText = "";
-  });
 
 // ===== Animated Particles Background =====
 const canvas = document.createElement("canvas");
