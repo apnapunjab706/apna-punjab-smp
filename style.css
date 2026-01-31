@@ -208,94 +208,92 @@ footer {
 }
 
 /* dashboard */
+/* ===== Dashboard Dark Theme ===== */
 
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #1b1b1b;
-  padding: 20px;
-  height: 100vh;
-}
-
-.sidebar h2 {
-  color: #3ddc84;
-}
-
-.sidebar a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  margin: 12px 0;
-  padding: 8px;
-  border-radius: 5px;
-}
-
-.sidebar a:hover {
-  background: #2e2e2e;
-}
-
-/* Main content */
-.main {
-  flex: 1;
-  padding: 20px;
-}
-
-/* Topbar */
-.topbar {
+/* Full screen flashy welcome */
+.full-screen-message {
+  margin: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+  background: #000;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
 }
 
-.badge {
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: green;
-  font-size: 13px;
+.full-screen-message h2 {
+  font-size: 80px;
+  color: #00ff00;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 10px rgba(0,255,0,0.6);
 }
 
+/* Main dashboard panel */
+.dashboard {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 25px;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 16px;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.25);
+}
+
+/* Dashboard heading */
+.dashboard h1 {
+  color: #22c55e;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.dashboard .subtitle {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Staff cards */
+.staff-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.card.owner { background: #16a34a; }
+.card.co-owner { background: #22c55e; }
+.card.admin { background: #f59e0b; }
+.card.mod { background: #ef4444; }
+
+/* Logout button */
 .logout-btn {
-  padding: 6px 12px;
-  background: #3ddc84;
+  padding: 12px 30px;
+  border-radius: 8px;
   border: none;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
-/* Hidden for role-based elements */
-.hidden {
-  display: none;
+.logout-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
 }
 
-/* Manage Staff */
-.manage-staff input, .manage-staff select, .manage-staff button {
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border: none;
-}
-
-.manage-staff input, .manage-staff select {
-  width: 200px;
-}
-
-.manage-staff button {
-  background: #3ddc84;
-  color: white;
-  cursor: pointer;
-}
-
-.manage-staff ul {
-  list-style: none;
-  padding: 0;
-}
-
-.manage-staff li {
-  margin: 8px 0;
-}
-
-.manage-staff li button {
-  margin-left: 5px;
-  padding: 3px 8px;
-  background: #ff4444;
+/* Mobile friendly */
+@media (max-width: 480px) {
+  .dashboard {
+    margin: 20px 15px;
+  }
+  .staff-cards {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
