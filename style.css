@@ -78,6 +78,23 @@ ul li {
   margin: 10px 0;
 }
 
+.server-card {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(34,197,94,0.1);
+}
+
+.server-card h3 {
+  margin: 0 0 5px 0;
+  color: #22c55e;
+}
+
+.server-card p {
+  margin: 2px 0;
+  color: #e5e7eb;
+}
+
 /* DISCORD */
 .discord-btn {
   display: inline-block;
