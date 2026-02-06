@@ -95,6 +95,17 @@ ul li {
   color: #e5e7eb;
 }
 
+.server-card ul {
+  margin-top: 5px;
+  padding-left: 20px;
+  color: #22c55e;
+  list-style: disc;
+}
+
+.server-card ul li {
+  margin: 2px 0;
+}
+
 /* DISCORD */
 .discord-btn {
   display: inline-block;
