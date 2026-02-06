@@ -29,9 +29,36 @@
   
   <!-- server stats -->
   <div class="server-status">
-  <p id="server-status">Loading server status...</p>
-  <p id="players">Players Online:</p>
-  <ul id="player-list"></ul> <!-- Live players list -->
+  <h2>🟢 Live Server Status</h2>
+
+  <div class="server-card">
+    <h3>Lobby</h3>
+    <p id="lobby-status">Checking...</p>
+    <p id="lobby-players"></p>
+    <ul id="lobby-list"></ul>
+  </div>
+
+  <div class="server-card">
+    <h3>Survival</h3>
+    <p id="survival-status">Checking...</p>
+    <p id="survival-players"></p>
+    <ul id="survival-list"></ul>
+  </div>
+
+  <div class="server-card">
+    <h3>Bedwars</h3>
+    <p id="bedwars-status">Checking...</p>
+    <p id="bedwars-players"></p>
+    <ul id="bedwars-list"></ul>
+  </div>
+
+  <div class="server-card">
+    <h3>Lifesteel</h3>
+    <p id="lifesteel-status">Checking...</p>
+    <p id="lifesteel-players"></p>
+    <ul id="lifesteel-list"></ul>
+  </div>
+
   </div>
 
   <!-- Interactive buttons -->
@@ -92,48 +119,59 @@ setTimeout(() => {
 }, 3000);
 
   // Live Minecraft server status
-  function loadServerStatus() {
-  fetch("https://api.mcstatus.io/v2/status/java/apnapunjab.fun")
+  // ===== Servers Array =====
+const servers = [
+  {name:"Lobby", ip:"apnapunjab.fun:25566", statusId:"lobby-status", playersId:"lobby-players", listId:"lobby-list"},
+  {name:"Survival", ip:"apnapunjab.fun:25569", statusId:"survival-status", playersId:"survival-players", listId:"survival-list"},
+  {name:"Bedwars", ip:"apnapunjab.fun:25567", statusId:"bedwars-status", playersId:"bedwars-players", listId:"bedwars-list"},
+  {name:"Lifesteel", ip:"apnapunjab.fun:25568", statusId:"lifesteel-status", playersId:"lifesteel-players", listId:"lifesteel-list"}
+];
+
+function fetchServer(server) {
+  fetch(`https://api.mcsrvstat.us/2/${server.ip}`)
     .then(res => res.json())
     .then(data => {
-      const status = document.getElementById("server-status");
-      const players = document.getElementById("players");
-      const playerList = document.getElementById("player-list");
+      const statusEl = document.getElementById(server.statusId);
+      const playersEl = document.getElementById(server.playersId);
+      const listEl = document.getElementById(server.listId);
 
-      if (data.online) {
-        status.innerHTML = "🟢 Server is ONLINE";
-        players.innerHTML = `👥 Players Online: ${data.players.online} / ${data.players.max}`;
+      if(data.online){
+        statusEl.innerHTML = "🟢 ONLINE";
+        playersEl.innerHTML = `👥 ${data.players.online} / ${data.players.max} players`;
 
-        playerList.innerHTML = "";
-
-        if (data.players.list && data.players.list.length > 0) {
-          data.players.list.forEach(name => {
+        listEl.innerHTML = "";
+        if(data.players.list && data.players.list.length > 0){
+          data.players.list.forEach(name=>{
             const li = document.createElement("li");
             li.innerText = name;
-            playerList.appendChild(li);
+            listEl.appendChild(li);
           });
         } else {
-          playerList.innerHTML = "<li>No players online</li>";
+          listEl.innerHTML = "<li>No players online</li>";
         }
 
       } else {
-        status.innerHTML = "🔴 Server is OFFLINE";
-        players.innerHTML = "";
-        playerList.innerHTML = "";
+        statusEl.innerHTML = "🔴 OFFLINE";
+        playersEl.innerHTML = "";
+        listEl.innerHTML = "";
       }
     })
-    .catch(() => {
-      document.getElementById("server-status").innerText = "⚠️ Status unavailable";
-      document.getElementById("players").innerText = "";
-      document.getElementById("player-list").innerHTML = "";
+    .catch(()=>{
+      const statusEl = document.getElementById(server.statusId);
+      const playersEl = document.getElementById(server.playersId);
+      const listEl = document.getElementById(server.listId);
+      statusEl.innerText = "⚠️ Status unavailable";
+      playersEl.innerText = "";
+      listEl.innerHTML = "";
     });
 }
 
-/* Load once */
-loadServerStatus();
+// Load all servers
+servers.forEach(s => fetchServer(s));
 
-/* Auto refresh every 15 sec */
-setInterval(loadServerStatus, 15000);
+// Auto refresh every 15 sec
+setInterval(()=>servers.forEach(s=>fetchServer(s)),15000);
+  
 </script>
   
 <script src="script.js"></script>
