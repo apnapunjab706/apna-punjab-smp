@@ -2,11 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Apna Punjab SMP</title>
+
+  <!-- ✅ CHANGE THIS to your real final URL (recommended) -->
+  <link rel="canonical" href="https://www.apnapunjab.fun/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ✅ Strong SEO title: includes Minecraft + modes -->
+  <title>Apna Punjab Minecraft Server (SMP, BedWars, Lifesteal) | Ranks & Discord</title>
+
+  <!-- ✅ Meta description: shows in Google snippet -->
+  <meta name="description" content="Join Apna Punjab Minecraft Server — SMP, BedWars, Lifesteal & events. Punjabi/Desi community, active staff, anti-grief, and ranks. IP: apnapunjab.fun. Join Discord for updates.">
+
+  <!-- Optional: not very important nowadays, but harmless -->
+  <meta name="keywords" content="Apna Punjab Minecraft, Apna Punjab SMP, apnapunjab.fun, Punjabi Minecraft server, Desi Minecraft server, BedWars server, Lifesteal server, Minecraft ranks, Minecraft store, Minecraft server Canada">
+
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (Discord/Facebook preview) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Apna Punjab Minecraft Server — SMP • BedWars • Lifesteal">
+  <meta property="og:description" content="Punjabi/Desi Minecraft community. Join SMP, BedWars, Lifesteal, events & ranks. IP: apnapunjab.fun">
+  <meta property="og:url" content="https://www.apnapunjab.fun/">
+  <meta property="og:image" content="https://www.apnapunjab.fun/logo.png">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apna Punjab Minecraft Server — SMP • BedWars • Lifesteal">
+  <meta name="twitter:description" content="Join Apna Punjab Minecraft Server. IP: apnapunjab.fun • Discord inside">
+  <meta name="twitter:image" content="https://www.apnapunjab.fun/logo.png">
+
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+  <!-- Structured data (helps Google understand your site) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Apna Punjab Minecraft Server",
+    "url": "https://www.apnapunjab.fun/",
+    "logo": "https://www.apnapunjab.fun/logo.png",
+    "sameAs": [
+      "https://discord.gg/PjkNUFE8HW"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Apna Punjab Minecraft Server",
+    "url": "https://www.apnapunjab.fun/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.apnapunjab.fun/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
+
 <body>
 
 <nav>
@@ -19,34 +77,44 @@
 </nav>
 
 <header>
-  <img src="logo.png" class="main-logo">
-  <h1>🔥 Apna Punjab SMP 🔥</h1>
-  <p>Pure Survival • Punjabi Community</p>
+  <img src="logo.png" class="main-logo" alt="Apna Punjab Minecraft Server Logo">
+  <h1>Apna Punjab Minecraft Server</h1>
+  <p>Punjabi/Desi Community • SMP • BedWars • Lifesteal • Events</p>
   <button onclick="copyIP()">Copy Server IP</button>
+
+  <!-- Extra keyword-rich text without ruining UI -->
+  <p style="margin-top:10px; font-size: 0.95rem;">
+    Play on <strong>apnapunjab.fun</strong> (Java) — ranks, giveaways, and friendly staff.
+  </p>
 </header>
 
 <section id="info" class="card">
-  <h2>📌 Server Info</h2>
-  <p><b>IP:</b> apnapunjab.fun</p>
-  <p><b>Port:</b> Coming Soon</p>
+  <h2>Server Info</h2>
+  <p><b>IP:</b> <span>apnapunjab.fun</span></p>
   <p><b>Version:</b> 1.20+</p>
-  <p><b>Mode:</b> Java SMP</p>
+  <p><b>Modes:</b> SMP • BedWars • Lifesteal</p>
+
+  <!-- Helps SEO + users -->
+  <p>
+    Looking for a <strong>Punjabi Minecraft server</strong> or <strong>Desi Minecraft community</strong>?
+    You’re in the right place — join our Discord for updates and events.
+  </p>
 </section>
 
 <section id="features" class="card">
-  <h2>✨ Features</h2>
+  <h2>Features</h2>
   <ul>
-    <li>🌾 Survival SMP</li>
-    <li>🛡️ Anti-Grief Protection</li>
-    <li>🎉 Regular Events</li>
-    <li>👑 Active Staff</li>
-    <li>🇮🇳 Desi Minecraft Community</li>
+    <li>🌾 Survival SMP with protection</li>
+    <li>🛡️ Anti-grief & staff support</li>
+    <li>🎉 Regular events + giveaways</li>
+    <li>🛒 Ranks & perks (Donate page)</li>
+    <li>🇮🇳 Punjabi / Desi Minecraft community</li>
   </ul>
 </section>
 
 <section id="status" class="card">
-  <h2>🟢 Live Server Status</h2>
-  
+  <h2>Live Server Status</h2>
+
   <div class="server-card">
     <h3>Lobby</h3>
     <p id="lobby-status">Checking...</p>
@@ -54,84 +122,82 @@
   </div>
 
   <div class="server-card">
-    <h3>Survival</h3>
+    <h3>Survival SMP</h3>
     <p id="survival-status">Checking...</p>
     <p id="survival-players"></p>
   </div>
 
   <div class="server-card">
-    <h3>Bedwars</h3>
+    <h3>BedWars</h3>
     <p id="bedwars-status">Checking...</p>
     <p id="bedwars-players"></p>
   </div>
 
   <div class="server-card">
-    <h3>Lifesteel</h3>
+    <h3>Lifesteal</h3>
     <p id="lifesteel-status">Checking...</p>
     <p id="lifesteel-players"></p>
   </div>
 
+  <!-- More SEO + clarity -->
+  <p style="margin-top:12px; opacity:0.9;">
+    Tip: You can join using <strong>apnapunjab.fun</strong>. For best experience, join our Discord for announcements & support.
+  </p>
 </section>
 
 <section id="discord" class="card">
-  <h2>💬 Join Our Discord</h2>
-  <a class="discord-btn" href="https://discord.gg/PjkNUFE8HW" target="_blank">
+  <h2>Join Our Discord</h2>
+  <a class="discord-btn" href="https://discord.gg/PjkNUFE8HW" target="_blank" rel="noopener">
     Join Discord
   </a>
 </section>
 
 <footer>
-  <p>© 2026 Apna Punjab SMP | Made with ❤️</p>
+  <p>© 2026 Apna Punjab Minecraft Server | apnapunjab.fun</p>
 </footer>
 
 <script>
-  
-// ===== Copy Server IP =====
-function copyIP() {
-  navigator.clipboard.writeText("apnapunjab.fun");
-  alert("Server IP Copied!");
-}
-  
-// ===== Live Server Status =====
-// ===== Server List =====
-const servers = [
-  {name: "Lobby", ip: "apnapunjab.fun:25566", statusId: "lobby-status", playersId: "lobby-players"},
-  {name: "Survival", ip: "apnapunjab.fun:25569", statusId: "survival-status", playersId: "survival-players"},
-  {name: "Bedwars", ip: "apnapunjab.fun:25567", statusId: "bedwars-status", playersId: "bedwars-players"},
-  {name: "Lifesteel", ip: "apnapunjab.fun:25568", statusId: "lifesteel-status", playersId: "lifesteel-players"},
-];
+  // ===== Copy Server IP =====
+  function copyIP() {
+    navigator.clipboard.writeText("apnapunjab.fun");
+    alert("Server IP Copied!");
+  }
 
-function fetchServerStatus(server) {
-  fetch(`https://api.mcsrvstat.us/2/${server.ip}`)
-    .then(res => res.json())
-    .then(data => {
-      const statusEl = document.getElementById(server.statusId);
-      const playersEl = document.getElementById(server.playersId);
+  // ===== Live Server Status =====
+  const servers = [
+    {name: "Lobby", ip: "apnapunjab.fun:25566", statusId: "lobby-status", playersId: "lobby-players"},
+    {name: "Survival", ip: "apnapunjab.fun:25569", statusId: "survival-status", playersId: "survival-players"},
+    {name: "Bedwars", ip: "apnapunjab.fun:25567", statusId: "bedwars-status", playersId: "bedwars-players"},
+    {name: "Lifesteel", ip: "apnapunjab.fun:25568", statusId: "lifesteel-status", playersId: "lifesteel-players"},
+  ];
 
-      if(data.online){
-        statusEl.innerHTML = "🟢 ONLINE";
-        playersEl.innerHTML = `👥 ${data.players.online} / ${data.players.max} players`;
-      } else {
-        statusEl.innerHTML = "🔴 OFFLINE";
-        playersEl.innerHTML = "";
-      }
-    })
-    .catch(() => {
-      document.getElementById(server.statusId).innerText = "⚠️ Status unavailable";
-      document.getElementById(server.playersId).innerText = "";
-    });
-}
+  function fetchServerStatus(server) {
+    fetch(`https://api.mcsrvstat.us/2/${server.ip}`)
+      .then(res => res.json())
+      .then(data => {
+        const statusEl = document.getElementById(server.statusId);
+        const playersEl = document.getElementById(server.playersId);
 
-// ===== Load All Servers =====
-servers.forEach(server => fetchServerStatus(server));
+        if (data.online) {
+          statusEl.innerHTML = "🟢 ONLINE";
+          playersEl.innerHTML = `👥 ${data.players.online} / ${data.players.max} players`;
+        } else {
+          statusEl.innerHTML = "🔴 OFFLINE";
+          playersEl.innerHTML = "";
+        }
+      })
+      .catch(() => {
+        document.getElementById(server.statusId).innerText = "⚠️ Status unavailable";
+        document.getElementById(server.playersId).innerText = "";
+      });
+  }
 
-// ===== Auto-refresh every 15 sec =====
-setInterval(() => {
   servers.forEach(server => fetchServerStatus(server));
-}, 15000);
-  
+  setInterval(() => {
+    servers.forEach(server => fetchServerStatus(server));
+  }, 15000);
 </script>
-  
+
 <script src="script.js"></script>
 </body>
 </html>
